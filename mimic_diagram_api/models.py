@@ -59,7 +59,7 @@ class DiagramNode(models.Model):
     selectable = models.BooleanField(default=True)
     visible = models.BooleanField(default=True)
     resizable = models.BooleanField(default=True)
-
+    connectable= models.BooleanField(default=True)
     z_index = models.IntegerField(default=0)
     group_id = models.UUIDField(null=True, blank=True)
 
@@ -77,6 +77,12 @@ class DiagramNodePort(models.Model):
         ("out", "Out"),
         ("both", "Both"),
     ]
+    PORT_POSITIONS = [
+        ("top", "Top"),
+        ("right", "Right"),
+        ("bottom", "Bottom"),
+        ("left", "Left"),
+    ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     node = models.ForeignKey(DiagramNode, on_delete=models.CASCADE, related_name="ports")
@@ -84,6 +90,7 @@ class DiagramNodePort(models.Model):
     x = models.FloatField()
     y = models.FloatField()
     type = models.CharField(max_length=10, choices=PORT_TYPES, default="both")
+    position = models.CharField(max_length=10, choices=PORT_POSITIONS,default="left")
 
     def __str__(self):
         return f"Port {self.id}"

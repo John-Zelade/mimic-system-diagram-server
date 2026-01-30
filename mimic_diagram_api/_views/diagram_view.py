@@ -6,5 +6,3 @@ from ..serializers.diagram import DiagramSerializer
 class DiagramViewSet(viewsets.ModelViewSet):
     queryset = Diagram.objects.all()
     serializer_class = DiagramSerializer
-
-#Retrieve Diagram along with the link and node in it

@@ -1,7 +1,7 @@
 # urls.py
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from ._views.auth_views import UserViewSet, GroupViewSet, RegisterView, LoginView, PermissionViewSet, RoleViewSet, RolePermissionViewSet
+from ._views.auth_views import UserViewSet, GroupViewSet, RegisterView, LoginView, PermissionViewSet, RoleViewSet, RolePermissionViewSet,RefreshAccessTokenView
 
 
 router = DefaultRouter()
@@ -13,6 +13,7 @@ router.register(r'role-permissions', RolePermissionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path("refresh-access-token/",RefreshAccessTokenView.as_view(), name="refresh-access-token"),
     path("register/", RegisterView.as_view(), name="register"),
     path("login/", LoginView.as_view(), name="login"),
 ]
